@@ -1,0 +1,30 @@
+import os
+import sys
+import time
+import logging
+
+from dotenv import load_dotenv
+
+import telegram.ext as tg
+
+# Setup logger
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
+    level=logging.INFO,
+)
+LOGGER = logging.getLogger(__name__)
+
+START_TIME = time.time()
+
+# Check python version
+if sys.version_info[0] < 3 or sys.version_info[1] < 9:
+    LOGGER.error(
+        "Hello dear, you mush have python version of at least 3.9! So go install the new version."
+    )
+
+load_dotenv()
+TOKEN = os.environ.get('TOKEN', None)
+
+updater = tg.Updater(token=TOKEN, use_context=True)
+dispatcher = updater.dispatcher
