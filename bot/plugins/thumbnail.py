@@ -1,12 +1,12 @@
 import os
 
-from pyrogram import filters
+from pyrogram import filters, Client
 
-from bot import pyro, DOWNLOAD_LOCATION
+from bot import DOWNLOAD_LOCATION
 from bot.sql import thumbnail_sql as sql
 
 # Saves Thumbnail
-@pyro.on_message(filters.photo)
+@Client.on_message(filters.photo)
 async def save_thumbnail(bot, update):
     if update.media_group_id is not None:
         download_location = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + str(update.media_group_id) + "/"
@@ -33,7 +33,7 @@ async def save_thumbnail(bot, update):
         )
 
 # Deletes thumbnail
-@pyro.on_message(filters.command["del"])
+@Client.on_message(filters.command("del"))
 async def del_thumbnail(bot, update):
     thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     
@@ -53,7 +53,7 @@ async def del_thumbnail(bot, update):
     )
 
 # Show Thumbnail
-@pyro.on_message(filters.command["show"])
+@Client.on_message(filters.command("show"))
 async def show_thumbnail(bot, update):
     thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     if not os.path.exists(thumb_image_path):
