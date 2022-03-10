@@ -33,7 +33,7 @@ async def save_thumbnail(bot, update):
         )
 
 # Deletes thumbnail
-@Client.on_message(filters.command("del"))
+@Client.on_message(filters.command(["del"]))
 async def del_thumbnail(bot, update):
     thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     
@@ -53,7 +53,7 @@ async def del_thumbnail(bot, update):
     )
 
 # Show Thumbnail
-@Client.on_message(filters.command("show"))
+@Client.on_message(filters.command(["show"]))
 async def show_thumbnail(bot, update):
     thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     if not os.path.exists(thumb_image_path):

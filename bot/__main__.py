@@ -4,7 +4,9 @@ from telegram import Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButt
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import escape_markdown
 
-from bot import START_TIME, dispatcher, updater, LOGGER, pyro
+from pyrogram import Client
+
+from bot import *
 
 START_TEXT = '''
 Hey <b>{}</b> 
@@ -97,7 +99,19 @@ def main():
     dispatcher.add_handler(HELP_HANDLER)
 
     LOGGER.info("Rename Bot - Retrogini has successfully started")
+
+    plugins = dict(root="bot/plugins")
+
+    pyro = Client(
+        "Rename-Bot-Retrogini",
+        bot_token=TOKEN,
+        api_id=API_ID,
+        api_hash=API_HASH,
+        plugins=plugins
+    )
+
     updater.start_polling(timeout=15, read_latency=4)
+    
     pyro.run()
 
 main()

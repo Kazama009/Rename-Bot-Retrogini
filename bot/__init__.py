@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 
 import telegram.ext as tg
 
-from pyrogram import Client
 
 # Setup logger
 logging.basicConfig(
@@ -36,10 +35,3 @@ DOWNLOAD_LOCATION = "./Downloads"
 
 updater = tg.Updater(token=TOKEN, use_context=True)
 dispatcher = updater.dispatcher
-
-pyro = Client(
-    "Rename-Bot-Retrogini",
-    bot_token=TOKEN,
-    api_id=API_ID,
-    api_hash=API_HASH
-)
