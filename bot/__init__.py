@@ -5,9 +5,6 @@ import logging
 
 from dotenv import load_dotenv
 
-import telegram.ext as tg
-
-
 # Setup logger
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -31,12 +28,12 @@ DB_URI = os.environ.get('DB_URI', None)
 API_ID = os.environ.get('API_ID', None)
 API_HASH = os.environ.get('API_HASH', None)
 
-DOWNLOAD_LOCATION = "./Downloads"
+DOWNLOAD_LOCATION = "./bot/Downloads"
 DOWNLOAD_START = "Give Me Some Time..."
 CUSTOM_CAPTION_UL_FILE = " "
 SAVED_RECVD_DOC_FILE = "File Downloaded Successfully 😎"
 UPLOAD_START = "Starting to upload..."
 AFTER_SUCCESSFUL_UPLOAD_MSG = "**Thank you for Using Me > ©  @RetroginiBots **"
 
-updater = tg.Updater(token=TOKEN, use_context=True)
-dispatcher = updater.dispatcher
+if DB_URI.startswith("postgres://"):
+    DB_URI = DB_URI.replace("postgres://", "postgresql://")
