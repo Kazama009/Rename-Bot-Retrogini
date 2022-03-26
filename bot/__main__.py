@@ -1,9 +1,6 @@
 import time
 
-from telegram import Update, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CallbackContext, CommandHandler
-from telegram.utils.helpers import escape_markdown
-
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message 
 from pyrogram import Client
 
 from bot import *
@@ -53,16 +50,11 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
-def start(update:Update, context:CallbackContext):
+@bot.on_message(filters.command(["start"], prefixes=["/", ".", "?"]))
+async def start(_, message):  
     uptime = get_readable_time((time.time() - START_TIME))
-    name = update.effective_user.first_name
-
-    update._effective_message.reply_text(
-        START_TEXT.format(
-            escape_markdown(name), escape_markdown(uptime)
-        ),
-
-        parse_mode=ParseMode.HTML,
+    await message.reply_text(
+        text=START_TEXT.format(message.from_user.mention, uptime),
         reply_markup=InlineKeyboardMarkup(
 
             [
@@ -79,24 +71,15 @@ def start(update:Update, context:CallbackContext):
                 ],
             ],
         ),
-    ),   
+    )   
 
-
-def help(update:Update, context:CallbackContext):
-    update.effective_message.reply_text(
-        HELP_TEXT,
-        parse_mode=ParseMode.HTML
+@bot.on_message(filters.command(["help"], prefixes=["/", ".", "?"]))
+async def help(_, message):  
+    message.reply_text(
+        HELP_TEXT
     )
 
 def main():
-
-    # Handlers
-    START_HANDLER = CommandHandler("start", start)
-    HELP_HANDLER = CommandHandler("help", help)
-
-    # Dispatchers
-    dispatcher.add_handler(START_HANDLER)
-    dispatcher.add_handler(HELP_HANDLER)
 
     LOGGER.info("Rename Bot - Retrogini has successfully started")
 
