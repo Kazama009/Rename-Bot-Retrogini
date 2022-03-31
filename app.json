@@ -1,12 +1,13 @@
 {
-  "name": "TG Rename Bot",
-  "description": "Telegram's best Open Source Rename Bot. Create your Fork now.",
+  "name": "Rename Bot",
+  "description": "A Simple Rename Bot",
   "keywords": [
     "telegram",
     "best",
     "open",
     "source",
-    "Rename"
+    "Rename",
+    "Retrogini",
   ],
   "success_url": "https://github.com/Kazama009",
   "website": "https://githib.com/Kazama009",
