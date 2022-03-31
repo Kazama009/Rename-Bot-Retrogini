@@ -24,7 +24,7 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 9:
 load_dotenv()
 
 TOKEN = os.environ.get('TOKEN', None)
-DB_URI = os.environ.get('DB_URI', None)
+DB_URI = os.environ.get('DATABASE_URL', None)
 API_ID = os.environ.get('API_ID', None)
 API_HASH = os.environ.get('API_HASH', None)
 
